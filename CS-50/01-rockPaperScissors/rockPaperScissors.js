@@ -1,3 +1,4 @@
+
 /*
 * Write a function that generates every sequence of throws a single
 * player could throw over a three-round game of rock-paper-scissors.
@@ -16,20 +17,22 @@
 * rockPaperScissors(5); // => [['rock', 'rock', 'rock', 'rock', 'rock'], etc...]
 *
 */
-var list = ["rock", "paper", "scissors"];
-var returnList = [];
-var rockPaperScissors = function (num) {
-	var result = [];
-	for (var i = 0; i <= 2; i++) {
-		for (var j = 0; j <= 2; j++) {
-			for (var k = 0; k <= 2; k++) {
-				result.push(list[i]);
-				result.push(list[j]);
-				result.push(list[k]);
+const rockPaperScissors = (rounds = 3) => {
+	let outcome = []
+	const RPS = ["rock", "scissors", "paper"]
+
+	const resultCase = (nowPlaying, lefts) => {
+		if (lefts === 0) outcome.push(nowPlaying)
+		else {
+			for (let i = 0; i <= 2; i++) {
+				resultCase(nowPlaying.concat(RPS[i]), lefts - 1)
 			}
 		}
 	}
-	returnList.push(result);
-	return returnList;
-};
-console.log(rockPaperScissors(2));
+
+	resultCase([], rounds)
+	return outcome
+}
+
+console.log(rockPaperScissors()) // [기본 파라미터 = 3 이므로 3번 내는 모든 케이스 반환]
+console.log(rockPaperScissors(4)) //[4번 내는 모든 케이스 반환]
