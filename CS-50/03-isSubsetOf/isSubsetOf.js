@@ -22,17 +22,14 @@
  * including non-strings.
 */
 
-Array.prototype.isSubsetOf = function(array) {
-  var case = new Object;
-  for (var i = 1; i <= this.array.length; i += 1) {
-    case = array[i];
+Array.prototype.isSubsetOf = function (array) {
+  for (let i = 0; i < this.length; i++) {
+    if (array.indexOf(this[i]) === -1)
+      return false
   }
-  console.log(case);
-  // return case;
-};
+  return true
+}
 
-var a = [1, 2];
-a.isSubsetOF([1, 3, 2, 4]) // true
-
-var b = [1, 2, 2]
-b.isSUbsetOF([2, 1, 100, 1000]) // true
+var a = ['commit', 'push']
+console.log(a.isSubsetOf(['commit', 'rebase', 'push', 'blame'])) // true
+console.log(a.isSubsetOf(['commit', 'hello', 'changmoo', 'hurray'])) // false
