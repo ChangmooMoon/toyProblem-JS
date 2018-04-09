@@ -20,7 +20,7 @@
  *
  */
 
-const nthFibonacci = function(n) {
+const nthFibonacci = function (n) {
   let result = [0, 1];
   let count = 1;
   while (count < n) {
@@ -31,14 +31,11 @@ const nthFibonacci = function(n) {
 };
 console.log(nthFibonacci(7)); // 13
 
-const nthFibonacci2 = function(n) {
-  if (n === 0)
-    return 0;
-  else if (n === 1) 
-    return 1;
-  else
-    return nthFibonacci2(n - 1) + nthFibonacci2(n - 2);
-  }
+const nthFibonacci2 = function (n) {
+  if (n === 0) return 0;
+  else if (n === 1) return 1;
+  else return nthFibonacci2(n - 1) + nthFibonacci2(n - 2);
+}
 console.log(nthFibonacci2(7)); // 13
 
 // var result = [0,1,1,2,3,5,8,13,.....]
