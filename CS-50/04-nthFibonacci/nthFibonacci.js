@@ -31,7 +31,7 @@ const nthFibonacci = function (n) {
 };
 console.log(nthFibonacci(7)); // 13
 
-const nthFibonacci2 = function (n) {
+const nthFibonacci2 = (n) => {
   if (n === 0) return 0;
   else if (n === 1) return 1;
   else return nthFibonacci2(n - 1) + nthFibonacci2(n - 2);
