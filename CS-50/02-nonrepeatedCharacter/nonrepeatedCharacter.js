@@ -6,14 +6,15 @@
  *   firstNonRepeatedCharacter('AACBDB'); // => 'C'
  */
 
-// var testArr = ['A','B',"C","D","B"];
-// console.log(testArr.includes(testArr[1],2));
-
-var firstNonRepeatedCharacter = function(string) {
-  var myObj = {};
-  for(var i in myObj){
-    myObj.i = string
+const firstNonRepeatedCharacter = (string) => {
+  for (let i = 0; i < string.length; i++) {
+    let charAt = string.charAt(i)
+    if (string.indexOf(string.charAt(i)) === i & // charAt의 인덱스가 i이고
+      string.indexOf(charAt, i + 1) === -1) return charAt // i+1 인덱스 이후로 charAt이 존재하지 않으면 charAt을 return
   }
+  return null
 }
 
-console.log(firstNonRepeatedCharacter('AACBDB'));
+console.log(firstNonRepeatedCharacter('ABA')) // B
+console.log(firstNonRepeatedCharacter('AACBDB')) // C
+console.log(firstNonRepeatedCharacter('')) // null
