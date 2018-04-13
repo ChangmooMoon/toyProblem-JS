@@ -9,16 +9,24 @@
  *
  * Extra credit: Extend your function to handle more than two input strings.
  */
-var encounter = function(char){}
 
-var a = [];
-var commonCharacters = function(string1, string2) {
-  for(var i =0 ; i < string1.length; i+=1){
-    for(var j =0; j<string2.length; j+=1){
-      if(string1[i] === string2[j])
-         a.push(string2[j]);
+const commonCharacters = (...theArgs) => {
+  if (theArgs.length < 2) throw new Error('At least Two or more parameters are required!')
+
+  let deduplication = {}, result = ''
+  theArgs.forEach((current) => {
+    for (let i = 0; i < current.length; i++) {
+      let char = current[i]
+      deduplication[char] = deduplication[char] || 0
+      deduplication[char]++
     }
+  })
+  for (let props in deduplication) {
+    if (deduplication[props] === theArgs.length) result += props
   }
-  return a;
-};
-commonCharacters('dcba','abcd');
+  return result
+}
+
+
+
+console.log(commonCharacters('acexivou', 'aegihobu', 'aeio'))
