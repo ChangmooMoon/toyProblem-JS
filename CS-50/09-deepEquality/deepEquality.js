@@ -12,7 +12,7 @@
   *
   */
 //=================답안 1======================================
-var deepEquals = function(apple, orange) {
+var deepEquals = function (apple, orange) {
   return JSON.stringify(apple) === JSON.stringify(orange)
     ? true
     : false;
@@ -22,9 +22,9 @@ var deepEquals = function(apple, orange) {
 // console.log(deepEquals({a:1, b: {c:5}},{a:1, b: {c:6}}));  false
 //=========================답안2===============================
 
-var deepEquals2 = function(apple, orange) {
+var deepEquals2 = function (apple, orange) {
   var result = true;
-  var findEqual = function(x, y) {
+  var findEqual = function (x, y) {
     for (var prop in x) {
       if (y.hasOwnProperty(prop)) {
         if (y[prop].constructor === Object)
@@ -36,15 +36,11 @@ var deepEquals2 = function(apple, orange) {
 }
 // ===============================================recursion 모범
 
-var deepEquals3 = function(apple, orange) {
+const deepEquals3 = (apple, orange) => {
   for (let i in apple) {
-    if (typeof apple[i] === 'object') {
-      return deepEquals3(apple[i], orange[i])
-    } else {
-      if (apple[i] !== orange[i])
-        return false;
-      }
-    }
+    if (typeof apple[i] === 'object') return deepEquals3(apple[i], orange[i])
+    else if (apple[i] !== orange[i]) return false;
+  }
   return true;
 };
 
@@ -54,19 +50,19 @@ console.log(deepEquals3({
     c: 3
   }
 }, {
-  a: 1,
-  b: {
-    c: 3
-  }
-})); // true
+    a: 1,
+    b: {
+      c: 3
+    }
+  })); // true
 console.log(deepEquals3({
   a: 1,
   b: {
     c: 5
   }
 }, {
-  a: 1,
-  b: {
-    c: 6
-  }
-})); // false
+    a: 1,
+    b: {
+      c: 6
+    }
+  })); // false
