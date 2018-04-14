@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   // --------------STEP 1--------------
   // wrap every word in every `<p>` tag with a `<span>` tag.
   // for example: <p>Hey there</p>
@@ -6,37 +6,28 @@ $(function() {
   // HINT: the `split` array method is your friend
 
   // TODO: your code here!
-  // var a = $('p').html().split(' ').map(function(word){
-  // return <span> + word + </span>;
-  // })
-  $('p').html($('p').html().split(' ').map(function(word) {
-    if (word)
-      return '<span>' + word + ' </span>';
-    }
-  ))
+  var addSpan = function () {
+    $('p').each(function (index, p) {
+      var pTag = $(p)
+      var text = pTag.text().trim().split(' ').reduce(function (acc, curV) {
+        return acc + '<span>' + curV + '</span>' + ' '
+      }, '')
+      pTag.html(text)
+    })
+  }
   // --------------STEP 2--------------
   // Next, change spans to random colors, once per second
 
   // TODO: your code here!
-
-  const randomColor = () => {
-    return Math.floor(Math.random() * 255);
+  var randomSpanColor = function () {
+    $('span').each(function (idx, s) {
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var rgb = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+      $(s).css('background-color', rgb);
+    });
   }
-
-  const changeColor = () => {
-    let rgb = [];
-    for (var i = 0; i < 3; i++) {
-      rgb[i] = randomColor();
-    }
-    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
-  }
-  setInterval(() => {
-    $('span').each((index, element) => {
-      $(element).css('color', changeColor())
-    })
-  }, 1000)
-}
-// ## HTML/jQuery
-// The included index.html contains two paragraph tags, each containing a block of lorem ipsum text. Using the file `main.js`:
-// * [ ] Write a function that wraps every word in its own `<span>` tag.
-// * [ ] Make each word change color once per second to a random color.
+  addSpan()
+  setInterval(randomSpanColor, 1000)
+})
