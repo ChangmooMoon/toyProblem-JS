@@ -16,11 +16,16 @@
  * powerSet("jump")
  * -> ["", "j", "ju", "jm", "jp", "jmu", "jmp", "jpu", "jmpu", "u", "m", "p", "mu", "mp", "pu", "mpu"]
  */
- // 트리로 풀면 참 좋겠다.
- var tree = function(){
+// iterator version //
+const powerset = (str) => {
+  let result = [''];
+  for (let i = 0; i < str.length; i++) {
+    for (let j = 0, length = result.length; j < length; j++) {
+      result.push(result[j] + str[i]);
+    }
+  }
+  return result;
+}
 
- }
+console.log(powerset('abc')) //[ '', 'a', 'b', 'ab', 'c', 'ac', 'bc', 'abc' ]
 
-
-console.log(powerSet("abc"));
-console.log(powerSet("jump"));
