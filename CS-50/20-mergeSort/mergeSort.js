@@ -97,25 +97,29 @@
 
 
 
-var mergeSort = function(array) {
-    if(array.length === 1) return array;
-    var pivot = Math.floor(array.length / 2);
-    var left = array.slice(0,pivot);
-    var right = array.slice(pivot, array.length)
-    return merge(mergeSort(left),mergeSort(right));
-};
+const mergeSort = (array) => {
+  if (array.length === 1) return array
+  let
+    pivot = Math.floor(array.length / 2),
+    left = array.slice(0, pivot),
+    right = array.slice(pivot, array.length)
 
-var merge = function(left,right){
-  var result = [];
-  while(left.length && right.length){
-    if(left[0] <= right[0]){
-      result.push(left.shift());
-    } else {
-      result.push(right.shift());
+  const mergeLeftRight = (left, right) => {
+    let result = []
+    while (left.length && right.length) {
+      if (left[0] <= right[0])
+        result.push(left.shift())
+      else
+        result.push(right.shift())
     }
+    while (left.length)
+      result.push(left.shift())
+    while (right.length)
+      result.push(right.shift())
+    return result
   }
-  while(left.length) result.push(left.shift());
-  while(right.length) result.push(right.shift());
-  return result;
+
+  return mergeLeftRight(mergeSort(left), mergeSort(right))
 }
-console.log(mergeSort([5,4,3,1,512,41,123]));
+
+console.log(mergeSort([5, 4, 3, 1, 512, 41, 123]));
