@@ -3,9 +3,7 @@
  *
  * Step 1: Implement the function Compose:
  *
- * Compose should return a function that is the composition of a list of
- * functions of arbitrary length.
-
+ * Compose should return a function that is the composition of a list of functions of arbitrary length.
  *
  * Each function is called on the return value of the function that follows.
  *
@@ -16,7 +14,6 @@
  *   var exclaim = function(statement) { return statement.toUpperCase() + '!';}
  *   var welcome = compose(greet, exclaim);
  *   welcome('phillip'); // 'hi: PHILLIP!'
- *   "hi " + name -> "hi" + "PHILLIP"
  *
  * Step 2: Implement the function Pipe:
  *
@@ -35,17 +32,25 @@
 
 'use strict';
 
-var compose = function(...arg){
-  for(var i=0; i<...arg.length; i++){
-    argument[i](argument[i+1])
-  }
-};
-var greet = function(name){ return 'hi: ' + name;}
-var exclaim = function(statement) { return statement.toUpperCase() + '!';}
+const compose = (...args) => {
+  return args.reduce((first, second) => (x) => first(second(x))
+  )
+}
+const pipe = (...args) => {
+  return args.reduce((first, second) => (x) => second(first(x))
+  )
+}
+const pipe2 = (...args) => {
+  return args.reduceRight((first, second) => (x) => first(second(x))
+  )
+}
+
+var greet = function (name) { return 'hi: ' + name; }
+var exclaim = function (statement) { return statement.toUpperCase() + '!'; }
 var welcome = compose(greet, exclaim);
+console.log(welcome('phillip')) // 'hi: PHILLIP!'
 
-// ===============================================
-
-var pipe = function(...arg){
-
-};
+var add2 = function (number) { return number + 2; }
+var multiplyBy3 = function (number) { return number * 3; }
+console.log(pipe(add2, multiplyBy3)(5)) // 21
+console.log(pipe(add2, multiplyBy3, multiplyBy3)(5)) // 63
