@@ -39,38 +39,38 @@
  */
 
 
-var Range = function(start, end, step) {
+var Range = function (start, end, step = 1) {
   this.start = start;
-  if(end === undefined) this.end = start
+  if (end === undefined) this.end = start
   else this.end = end;
   this.step = step;
-};
+}
 
 Range.prototype.size = function () {
   return this.step === undefined
-  ? (this.end - this.start + 1)
-  : Math.floor((this.end - this.start + 1) / this.step)
+    ? (this.end - this.start + 1)
+    : Math.floor((this.end - this.start + 1) / this.step)
 };
 
 Range.prototype.each = function (callback) {
-  for(var i = this.start; i<=this.end; i+=this.step){
+  for (var i = this.start; i <= this.end; i += this.step) {
     callback(i);
   }
 };
 
 Range.prototype.includes = function (val) {
-  for(var i = this.start; i<this.end; i+=this.step){
-    if(i === val) return true;
+  for (var i = this.start; i < this.end; i += this.step) {
+    if (i === val) return true;
   }
   return false;
 };
 
 var range = new Range(1); //1
 console.log(range.size());
-var myRange = new Range(0,10); //0,1,2,3,4,5,6,7,8,9,10
-var evenNumbers = new Range(2,8,2); // 2,4,6,8
-evenNumbers.each(function(val){
-  console.log(val+"!");
+var myRange = new Range(0, 10); //0,1,2,3,4,5,6,7,8,9,10
+var evenNumbers = new Range(2, 8, 2); // 2,4,6,8
+evenNumbers.each(function (val) {
+  console.log(val + "!");
 })
 console.log(evenNumbers.size());
 console.log(myRange.size());
