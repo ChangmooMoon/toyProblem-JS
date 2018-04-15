@@ -1,6 +1,5 @@
 /*
- * write a function that takes a string of text and returns true if
- * the parentheses are balanced and false otherwise.
+ * write a function that takes a string of text and returns true if the parentheses are balanced and false otherwise.
  *
  * Example:
  *   balancedParens('(');  // false
@@ -23,23 +22,39 @@
  *
  *
  */
-var balancedParens = function(input) {
-  var result = false;
-  var bracket = [
-    '{',
-    '}',
-    '[',
-    '(',
-    ')',
-    ']'
-  ];
-  var myStr = input.split('').filter(function(x){
-    if(bracket.includes(x)) return x;
-  });
-  while(myStr === '' ){
-    if(str.includes('()' || '[]' || '{}' ) 
+const balancedParens = (input) => {
+  const open = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+  }
+  const close = {
+    ')': true,
+    ']': true,
+    '}': true,
+  }
+  let stack = []
+
+  for (let i = 0; i < input.length; i++) {
+    let char = input[i]
+
+    if (open[char]) stack.push(char)
+    else if (close[char]) {
+      if (open[stack.pop()] !== char) return false
     }
   }
+  return stack.length === 0 ? true : false
 }
-console.log(balancedParens('[]124(){}'));
-;
+console.log(balancedParens('('))  // false
+console.log(balancedParens('()')) // true
+console.log(balancedParens(')('))  // false
+console.log(balancedParens('(())'))  // true
+
+console.log(balancedParens('[](){}')) // true
+console.log(balancedParens('[({})]'))   // true
+console.log(balancedParens('[(] {)}')) // false
+
+
+console.log(balancedParens(' var wow  = { yo: thisIsAwesome() }')) // true
+console.log(balancedParens(' var hubble = function() { telescopes.awesome();')) // false
+// i think regExp solution might be possible
