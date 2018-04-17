@@ -42,44 +42,45 @@
  *  - Make your function operate on rectangular matrices (MxN rather than NxN).
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
+// rectangular matrices,
+const rotateMatrix = (matrix, direction = 1) => {
+    let
+        M = matrix.length,
+        N = matrix[0].length,
+        result = []
 
-var rotateMatrix = function(matrix,direction){
- var rotated = [];
- var rowLength = Math.sqrt(matrix.length);
- rotated.length = matrix.length;
+    const clockWise = (M, N, result) => {
+        for (let i = 0; i < N; i++) {
+            result.push([])
+            for (let j = M; j > 0; j--) {
+                result[i].push(matrix[j - 1][i])
+            }
+        }
+        return result
+    }
 
- for(var i =0; i< matrix.length; i++){
-   var column = i % rowLength;
-   var row = Math.floor(i/rowLength);
+    const counterClockWise = (M, N, result) => {
+        for (let i = 0; i < N; i++) {
+            result.push([])
+            for (let j = 0; j < M; j++) {
+                let yAxis = N - i - 1
+                result[i].push(matrix[j][yAxis])
+            }
+        }
+        return result
+    }
 
-   var newC = rowLength - column - 1;
-   var newR = column
-
-   var change = newR * rowLength + column;
-   rotated[change] = matrix[i]
- }
- return rotated;
-};
-var matrix = [
-[1,2,3,4],
-[5,6,7,8],
-[9,'A','B','C'],
-['D','E','F','G'],
-];
-
-
-function transposeArray(array, arrayLength){
-    var newArray = [];
-    for(var i = 0; i < array.length; i++){
-        newArray.push([]);
-    };
-
-    for(var i = 0; i < array.length; i++){
-        for(var j = 0; j < arrayLength; j++){
-            newArray[j].push(array[i][j]);
-        };
-    };
-
-    return newArray;
+    if (direction === 1) return clockWise(M, N, result)
+    else if (direction === -1) return counterClockWise(M, N, result)
+    else throw new Error('wrong direction')
 }
-console.log(transposeArray(matrix,4))
+
+var matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    ['A', 'B', 'C', 'D']
+]
+
+console.log(rotateMatrix(matrix))
+console.log(rotateMatrix(matrix, -1))
+console.log(rotateMatrix(matrix, 2))
