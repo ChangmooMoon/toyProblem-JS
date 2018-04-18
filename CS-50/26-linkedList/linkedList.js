@@ -16,51 +16,51 @@
 // list.removeHead(); //yields '4'
 // list.tail.value;   //yields '5';
 
-let LinkedList = function () {
-  this.head = null
-  this.tail = null
-}
-//write methods here!
-LinkedList.prototype.addToTail = function (val) {
-  let newNode = this.makeNode(val)
+class LinkedList {
+  constructor() {
+    this.head = null
+    this.tail = null
+  }
 
-  if (!this.head && !this.tail) {
-    this.head = newNode
-    this.tail = newNode
-  } else {
-    this.tail.next = newNode
-    this.tail = newNode
+  addToTail(val) {
+    let newNode = this.makeNode(val)
+
+    if (!this.head && !this.tail) {
+      this.head = newNode
+      this.tail = newNode
+    } else {
+      this.tail.next = newNode
+      this.tail = newNode
+    }
+  }
+
+  removeHead() {
+    if (!this.head) return null
+    else {
+      let removed = this.head.value
+      this.head = this.head.next
+      return removed
+    }
+  }
+  contains(val) {
+    if (!this.head) return false
+
+    let currentNode = this.head
+    while (currentNode) {
+      if (currentNode.value === val || this.tail.value === val) return true;
+      else currentNode = currentNode.next
+    }
+    return false
+  }
+
+  makeNode(val) {
+    let node = {}
+    node.value = val
+    node.next = null
+    return node
   }
 }
 
-LinkedList.prototype.removeHead = function () {
-  if (!this.head) return null
-  else {
-    let removed = this.head.value
-    this.head = this.head.next
-    return removed
-  }
-}
-
-LinkedList.prototype.contains = function (val) {
-  if (!this.head) return false
-
-  let currentNode = this.head
-  while (currentNode) {
-    if (currentNode.value === val || this.tail.value === val) return true;
-    else currentNode = currentNode.next
-  }
-  return false;
-}
-
-LinkedList.prototype.makeNode = function (val) {
-  let node = {}
-
-  node.value = val
-  node.next = null
-
-  return node
-};
 
 var list = new LinkedList()
 console.log(list.tail)   //yields 'null'
