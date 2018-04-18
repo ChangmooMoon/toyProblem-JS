@@ -1,6 +1,5 @@
 /**
- * Given an array containing a deck of cards, implement a function that shuffles
- * the deck.
+ * Given an array containing a deck of cards, implement a function that shuffles the deck.
  *
  * Example:
  *  var deck = orderedDeck();
@@ -9,8 +8,7 @@
  *  // ["2♠","J♣","A♦", ... ,"7♣","8♣","K♠"]
  *
  * Note:
- *   A shuffled deck should be completely random. That means that a given card should
- *   be as likely as any other to appear in a given deck index, completely independent
+ *   A shuffled deck should be completely random. That means that a given card should be as likely as any other to appear in a given deck index, completely independent
  *   of the order of the input deck. Think carefully about how to be sure your algorithm
  *   generates a properly shuffled deck-- it is easy to accidentally create a biased algorithm.
  *
@@ -31,22 +29,42 @@
  *   See https://www.dartmouth.edu/~chance/teaching_aids/books_articles/Mann.pdf .
  */
 
-var shuffleDeck = function(deck) {
-  // Your code here
-};
+const shuffleDeck = (deck) => {
+  let
+    length = deck.length,
+    chosenOne,
+    tmp
+
+  while (length) {
+    chosenOne = Math.floor(Math.random() * length)
+    length--
+    tmp = deck[length]
+    deck[length] = deck[chosenOne]
+    deck[chosenOne] = tmp
+  }
+  return deck
+}
 
 // Ordered deck generator provided for your testing convenience
 // (You may alter this function, but an unaltered copy will be used for tests.)
-var orderedDeck = function() {
-  var suits = [ '♥', '♣', '♠', '♦' ];
-  var values = [ 'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K' ];
-  var deck = [];
+const orderedDeck = () => {
+  const
+    suits = ['♥', '♣', '♠', '♦'],
+    values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
+  let deck = []
 
-  suits.forEach(function(suit) {
-    values.forEach(function(value) {
-      deck.push(value + suit);
-    });
-  });
+  suits.forEach((suit) => {
+    values.forEach((value) => {
+      deck.push(value + suit)
+    })
+  })
+  return deck
+}
 
-  return deck;
-};
+let deck = orderedDeck()
+// console.log(deck)
+// ["A♥","2♥","3♥",...,"J♦","Q♦","K♦"]
+console.log('==========')
+console.log(shuffleDeck(deck))
+  // ["2♠","J♣","A♦", ... ,"7♣","8♣","K♠"]
+
