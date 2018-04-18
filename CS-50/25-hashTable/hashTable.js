@@ -3,34 +3,35 @@
  * The hashtable does not need to resize but it should still handle collisions.
  */
 
-const makeHashTable = () => {
-  let
-    result = {},
-    storage = [],
-    storageLimit = 1000
-  size = 0
+class makeHashTable {
+  constructor() {
+    this.result = {}
+    this.storage = []
+    this.storageLimit = 1000
+    this.size = 0
+  }
 
-  result.insert = (key, value) => {
-    size++
+  insert(key, value) {
+    this.size++
     let
-      index = getIndexBelowMaxForKey(key, storageLimit),
-      bucket = storage[index]
+      index = getIndexBelowMaxForKey(key, this.storageLimit),
+      bucket = this.storage[index]
 
     if (bucket) {
       for (let i = 0; i < bucket.length; i++) {
         if (bucket[i][0] === key) bucket[i][1] = value
       }
     } else {
-      storage[index] = []
-      storage[index].push([key, value])
+      this.storage[index] = []
+      this.storage[index].push([key, value])
     }
-    if (size / storageLimit >= 0.75) result.resize(storageLimit * 2)
+    if (this.size / this.storageLimit >= 0.75) result.resize(storageLimit * 2)
   }
 
-  result.retrieve = (key) => {
+  retrieve(key) {
     let
-      index = getIndexBelowMaxForKey(key, storageLimit),
-      bucket = storage[index]
+      index = getIndexBelowMaxForKey(key, this.storageLimit),
+      bucket = this.storage[index]
 
     if (bucket) {
       for (let i = 0; i < bucket.length; i++) {
@@ -39,25 +40,25 @@ const makeHashTable = () => {
     } else return undefined
   }
 
-  result.remove = (key) => {
+  remove(key) {
     let
-      index = getIndexBelowMaxForKey(key, storageLimit),
-      bucket = storage[index]
+      index = getIndexBelowMaxForKey(key, this.storageLimit),
+      bucket = this.storage[index]
 
     if (bucket) {
       for (let i = 0; i < bucket.length; i++) {
         if (bucket[i][0] === key) {
-          size--
+          this.size--
           bucket.splice(i, 1)
         }
       }
     }
-    if (size / storageLimit <= 0.25) result.resize(storageLimit / 2)
+    if (this.size / this.storageLimit <= 0.25) this.resize(this.storageLimit / 2)
   }
 
-  result.resize = (newLimit) => {
+  resize(newLimit) {
     let
-      oldStorage = storage,
+      oldStorage = this.storage,
       storageLimit = newLimit,
       storage = []
 
@@ -66,8 +67,8 @@ const makeHashTable = () => {
       if (bucket) {
         for (let j = 0; j < bucket.length; j++) {
           let
-            index = getIndexBelowMaxForKey(bucket[j][0], storageLimit),
-            newBucket = storage[index]
+            index = getIndexBelowMaxForKey(bucket[j][0], this.storageLimit),
+            newBucket = this.storage[index]
           if (newBucket) newBucket.push([bucket[j][0], bucket[j][1]])
           else {
             newBucket = []
@@ -77,7 +78,6 @@ const makeHashTable = () => {
       }
     }
   }
-  return result
 }
 
 // This is a "hashing function". You don't need to worry about it, just use it
@@ -94,3 +94,12 @@ const getIndexBelowMaxForKey = (str, max) => {
 }
 
 console.log(getIndexBelowMaxForKey('hi', 1024))
+
+let hashTable = new makeHashTable()
+console.log(hashTable)
+hashTable.insert('hi', 369)
+console.log(hashTable)
+console.log(hashTable.retrieve('hi'))
+hashTable.remove('hi')
+console.log(hashTable)
+
