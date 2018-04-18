@@ -7,39 +7,71 @@
 /**
   * Stack Class
   */
-var Stack = function () {
-  // add an item to the top of the stack
-  this.push = function (x) {
-    
+class Stack {
+  constructor() {
+    this.count = 0
+    this.data = []
   }
-  // remove an item from the top of the stack
-  this.pop = function () {
+
+  push(x) {
+    this.data[this.count++] = x
   }
-  // return the number of items in the stack
-  this.size = function () {
+
+  pop() {
+    return (this.count > 0) ?
+      this.data.splice(--this.count, 1)[0]
+      : undefined
+  }
+
+  size() {
+    return this.count
   }
 }
-
 /**
   * Queue Class
   */
-var Queue = function () {
+class Queue {
   // Use two `stack` instances to implement your `queue` Class
-  var inbox = new Stack()
-  var outbox = new Stack()
-
-  // called to add an item to the `queue`
-  this.enqueue = function () {
-    // TODO: implement `enqueue`
+  constructor() {
+    this.inbox = new Stack()
+    this.outbox = new Stack()
   }
-
+  enqueue(x) {
+    this.inbox.push(x)
+  }
   // called to remove an item from the `queue`
-  this.dequeue = function () {
-    // TODO: implement `dequeue`
+  dequeue() {
+    if (this.outbox.size() === 0) {
+      while (this.inbox.size() > 0) this.outbox.push(this.inbox.pop())
+    } else return this.outbox.pop()
   }
 
-  // should return the number of items in the queue
-  this.size = function () {
-    // TODO: implement `size`
+  size() {
+    return this.inbox.size() + this.outbox.size()
   }
 }
+
+// let a = new Stack()
+// console.log(a)
+// a.push(1)
+// a.push(3)
+// a.push(5)
+// a.pop()
+// console.log(a)
+
+let b = new Queue()
+console.log('==================')
+console.log(b)
+b.enqueue(1)
+b.enqueue(3)
+b.enqueue(5)
+console.log(b)
+b.dequeue()
+console.log(b)
+b.dequeue()
+console.log(b)
+b.enqueue(7)
+b.enqueue(9)
+console.log(b)
+b.dequeue()
+console.log(b)
