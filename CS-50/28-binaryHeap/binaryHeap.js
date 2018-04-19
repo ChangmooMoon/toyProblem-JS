@@ -1,27 +1,27 @@
 /**
- * A heap is a special kind of tree in which a parent node is ordered only in
- * respect to its immediate children. Unlike the binary search tree you may have
- * implemented, where the entire tree is ordered, in a heap the only order
- * guaranteed is between a node and its parent.
- parent node
+ * A heap is a special kind of tree in which a parent node is ordered only in respect to its immediate children.
+ * Unlike the binary search tree you may have implemented,
+ * where the entire tree is ordered, in a heap the only order guaranteed is between a node and its parent.
  *
- * In a binary heap each node should have only zero, one, or two children. Each node
- * must have 2 children before the next oldest node can have any children. Therefore
- * the 0th node will be the parent of the 1st and 2nd nodes, the 1st node will be the
- * parent of the 3rd and 4th nodes, and the 2nd node will be the parent of the 5th and
- * 6th nodes. In a specific kind of binary heap, the binary min heap, every node is
- * less than its immediate children:
+ * In a binary heap each node should have only zero, one, or two children.
+ * Each node must have 2 children before the next oldest node can have any children.
+ * Therefore the 0th node will be the parent of the 1st and 2nd nodes,
+ * the 1st node will be the parent of the 3rd and 4th nodes,
+ * and the 2nd node will be the parent of the 5th and 6th nodes.
+ * In a specific kind of binary heap, the binary min heap, every node is less than its immediate children:
  *
  *          0
  *     1         2
  *   3   4     5   6
  *  7
  *
- * There is only one place at any given time in a binary heap where a node can be
- * added or removed. In the example above, the next node will be inserted as the second
- * child of 3. If we were to remove a node instead, we would remove the 7. This mimics
- * the behavior of a stack and allows us to manage the heap in a very memory efficient way,
- * using a list or array. For example, the heap pictured above can be described as:
+ * There is only one place at any given time in a binary heap where a node can be added or removed.
+ * In the example above, the next node will be inserted as the second child of 3.
+ * If we were to remove a node instead, we would remove the 7.
+ * This mimics the behavior of a stack and allows us to manage the heap in a very memory efficient way,
+ * using a list or array.
+ *
+ * For example, the heap pictured above can be described as:
  *
  * [0, 1, 2, 3, 4, 5, 6, 7]
  *
@@ -68,50 +68,73 @@
 // and then iteratively returns the root of the `BinaryHeap` until its empty, thus returning a sorted array.
 
 
-function BinaryHeap() {
-	this.heap = [];
-	// this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
-	this.compare = function (i, j) {
-		return i < j
+class BinaryHeap {
+	constructor() {
+		this._heap = []
+		// this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
+		this._compare = function (i, j) { return i < j }
+	}
+
+	getRoot() {
+		// This function works just fine and shouldn't be modified
+		return this._heap[0]
+	}
+	/* parentIndex = Math.floor( (index - 1) / 2 )
+	 * childrenIndices = [index * 2 + 1, index * 2 + 2]
+	 * */
+	insert(value) {
+		this._heap.push(value)
+		let
+			index = this._heap.length - 1,
+			parentIndex = Math.floor((index - 1) / 2),
+			parentValue = this._heap[parentIndex]
+
+		while (value < parentValue) {
+			this._heap[index] = parentValue
+			this._heap[parentIndex] = value
+			index = parentIndex
+			parentIndex = Math.floor(index - 1) / 2
+			parentValue = this._heap[parentIndex]
+		}
+
+	}
+
+	removeRoot() {
+		let
+			value = this._heap.shift(),
+			oldRoot = value,
+			index = 0,
+			childrenIndices = [index * 2 + 1, index * 2 + 2]
+		this._heap[0] = value
+
+		while (
+			value > this._heap[childrenIndices[0]] ||
+			value > this._heap[childrenIndices[1]]) {
+			let
+				leftChild = this._heap[childrenIndices[0]],
+				rightChild = this._heap[childrenIndices[1]]
+
+			if (leftChild < rightChild) {
+				this._heap[index] = leftChild
+				leftChild = value
+				index = childrenIndices[0]
+				childrenIndices = [index * 2 + 1, index * 2 + 2]
+			} else {
+				this._heap[index] = rightChild
+				rightChild = value
+				index = childrenIndices[1]
+				childrenindices = [index * 2 + 1, index * 2 + 2]
+			}
+		}
 	}
 }
 
-// This function works just fine and shouldn't be modified
-BinaryHeap.prototype.getRoot = function () {
-	return this.heap[0];
-}
-
-BinaryHeap.prototype.insert = function (value) {
-	this.heap.push(value);
-	let currIndex = this.heap.indexOf(value);
-	let currNode = this.heap[currIndex];
-	console.log('index ' + currIndex + ': ' + currNode);
-	let parentIndex = Math.floor((currNode - 1) / 2);
-	console.log(parentIndex);
-	let parentNode = this.heap[parentIndex];
-	console.log(parentNode);
-	if (currNode < parentNode) {
-		let tempC = currNode;
-		let tempP = parentNode;
-		this.heap[parentIndex] = tempC;
-		this.heap[currIndex] = tempP;
-	}
-	console.log('after sorting: ' + this.heap);
-}
-BinaryHeap.prototype.removeRoot = function () {
-	// TODO: Your code here
-	this.heap.pop();
-	return this.heap;
-}
-
-let newBinaryHeap = new BinaryHeap();
-newBinaryHeap.getRoot();
-newBinaryHeap.insert(5);
-newBinaryHeap.insert(3);
-newBinaryHeap.insert(7);
-newBinaryHeap.insert(6);
-newBinaryHeap.insert(2);
-newBinaryHeap.insert(4);
-newBinaryHeap.insert(1);
-newBinaryHeap.insert(0);
-console.log(newBinaryHeap.heap);
+let a = new BinaryHeap()
+console.log(a)
+a.insert(1)
+a.insert(5)
+a.insert(3)
+a.insert(4)
+a.insert(2)
+a.insert(6)
+console.log(a)
