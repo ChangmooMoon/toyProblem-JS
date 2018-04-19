@@ -1,18 +1,14 @@
-#문제 분류
+# toyProblem
 
-# 자료구조
- ## 배열과 리스트 : 가장 기본이 되는 자료구조
- ## 스택과 큐 : 좀 더 복잡한 리스트형 자료구조
- ## 연결 리스트 : 배열의 단점을 개선한 자료구조
- ## 딕셔너리 : 키와 값 쌍으로 데이터 저장
- ## 해싱 : 자료를 빠르게 삽입하거나 가져올 수 있는 자료구조
- ## 집합 : 모든 데이터가 고유한 상황일 때 적합한 자료구조
- ## 이진 트리 : 계층적으로 데이터 저장
- ## 그래프와 그래프 알고리즘 : 네트워크 형태의 자료구조를 구성하는 데 적합
- ## 알고리즘 : 데이터 정렬과 검색에 유용한 알고리즘
- ## 고급 알고리즘 : 동적 프로그래밍과 탐욕 알고리즘
+----
+## data structure
 
-#기타
-  ## 문자열 처리
-
-추후 새로 카테고리화 예정, 어려운 파트만 모운 카테고리를 따로 폴더화 해서 공부해볼 예정(자료구조 위주)
+1. stack,queue
+2. linked list : 
+3. dictionary : (key-value pair)
+4. hashing : 
+5. set : 
+6. binary tree : 
+7. graph, graph-related algorithm : 
+8. algorithm : 
+9. advanced algorithm : Dynamic programming greedy algorithm
