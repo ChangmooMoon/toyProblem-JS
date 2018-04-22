@@ -12,7 +12,7 @@
 *
  */
 
-var numbersToWords = {
+const numbersToWords = {
   0: 'zero',
   1: 'one',
   2: 'two',
@@ -41,8 +41,8 @@ var numbersToWords = {
   70: 'seventy',
   80: 'eighty',
   90: 'ninety',
-};
-var numbersToPlace = {
+}
+const numbersToPlace = {
   10: 'ten',
   100: 'hundred',
   1000: 'thousand',
@@ -51,8 +51,38 @@ var numbersToPlace = {
   1000000000000: 'trillion',
   1000000000000000: 'quadrillion',
   1000000000000000000: 'quintillion',
-};
+}
 
 Number.prototype.toEnglish = function () {
-  // return my value as english words
-};
+  const num = this
+  let
+    result, numLeft, numInPlace, place, rest
+
+  if (!!numbersToWords[num]) result = numbersToWords[num]
+  else if (num < 100) {
+    numInPlace = Math.floor(num / 10)
+    numLeft = num % 10
+    result = numbersToWords[numInPlace * 10] + '-' + numbersToWords[numLeft]
+  } else {
+    if (num < 1000) place = 100
+    else {
+      place = 1000
+      while (place * 1000 <= num) place *= 1000
+    }
+
+    numInPlace = Math.floor(num / place)
+    numLeft = num % place
+    result = numInPlace.toEnglish() + ' ' + numbersToPlace[place]
+    rest = numLeft.toEnglish()
+
+    if (rest !== 'zero') result += ' ' + rest
+  }
+  return result
+}
+
+
+console.log((7).toEnglish()) // > "seven"
+console.log((99).toEnglish()) // > "ninety-nine"
+console.log((575).toEnglish()) // > "five hundred seventy-five"
+console.log((78193512).toEnglish())
+console.log((150043.273).toEnglish()) // > "one hundred fifty thousand forty-three and two hundred seventy three thousandth
