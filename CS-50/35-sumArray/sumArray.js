@@ -10,5 +10,20 @@
  */
 
 // Solved in O(n) time with O(1) memory
-var sumArray = function(array) {
-};
+const sumArray = (array) => {
+  let
+    tmp = max = array[0]
+  for (var i = 1; i < array.length; i++) {
+    tmp = Math.max(array[i], tmp + array[i])
+    max = Math.max(max, tmp)
+  }
+  return max
+}
+
+let a = sumArray([1, 2, 3]); // => 6
+
+let b = sumArray([1, 2, 3, -4]); // 6
+let c = sumArray([1, 2, 3, -4, 5]); // 7
+let d = sumArray([4, -1, 5]); // => 8
+let e = sumArray([10, -11, 11]); // 11
+console.log(a, b, c, d, e)
