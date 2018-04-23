@@ -9,8 +9,9 @@
   * returns a list of all of the words that can be written on the phone with
   * that number. (You should return all permutations, not only English words.)
   *
+  * //
   * Example:
-  *   telephoneWords('2745');
+  *   telephoneWords('2745'); //2: ABC 7: PQRS 4: GHI 5: JKL
   *   => ['APGJ',
   *        'APGK',
   *        'APGL',
@@ -27,7 +28,7 @@
   *
   */
 
-var phoneDigitsToLetters = {
+const phoneDigitsToLetters = {
   0: '0',
   1: '1',
   2: 'ABC',
@@ -38,9 +39,27 @@ var phoneDigitsToLetters = {
   7: 'PQRS',
   8: 'TUV',
   9: 'WXYZ'
-};
+}
 
 
-var telephoneWords = function(digitString) {
-  // TODO: return every combination that can be spelled on a phone with these digits
-};
+const telephoneWords = (digitString) => {
+  let result = []
+  const recursion = (currWords, index) => {
+    if (currWords.length === digitString.length) {
+      result.push(currWords)
+      return
+    }
+    let currLetters = phoneDigitsToLetters[digitString[index]]
+    for (var i = 0; i < currLetters.length; i++)
+      recursion(currWords + currLetters[i], index + 1)
+  }
+
+  recursion('', 0)
+  return result
+}
+
+console.log(telephoneWords('23')) //2: ABC 7: PQRS 4: GHI 5: JKL
+
+// APGJ,APGK,APGL
+// APHJ,APHk,APHL
+// APIJ,APIK,APIL
