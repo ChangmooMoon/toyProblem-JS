@@ -1,59 +1,49 @@
-/*
- * function bind():
- *
- * example 1:
- *
- * var alice = {
- *   name: 'alice',
- *   shout: function(){
- *     alert(this.name);
- *   }
- * }
- * var boundShout = bind(alice.shout, alice);
- * boundShout(); // alerts 'alice'
- * boundShout = bind(alice.shout, {name: 'bob'});
- * boundShout(); // alerts 'bob'
- *
- * example 2:
- *
- * var func = function(a, b){ return a + b };
- * var boundFunc = bind(func, null, 'foo');
- * var result = boundFunc('bar');
- * result === 'foobar'; // true
- *
-*/
+const bind = (func, arg1, ...args) => {
+  return (...moreArgs) => {
+    let allArgs = args.concat(moreArgs)
+    return func.apply(arg1, allArgs)
+  }
+}
 
-var bind = function(
-) {
-  // TODO: Your code here
-};
+// // example 1
+// let alice = {
+//   name: 'alice',
+//   shout() { return this.name }
+// }
+// let boundShout = bind(alice.shout, alice)
+// console.log(boundShout()) // 'alice'
 
-/*
- * Function.prototype.bind:
- *
- * example 1:
- *
- * var alice = {
- *   name: 'alice',
- *   shout: function(){
- *     alert(this.name);
- *   }
- * }
- * var boundShout = alice.shout.bind(alice);
- * boundShout(); // alerts 'alice'
- * boundShout = alice.shout.bind({name: 'bob'});
- * boundShout(); // alerts 'bob'
- *
- * example 2:
- *
- * var func = function(a, b){ return a + b };
- * var boundFunc = func.bind(null, 'foo');
- * var result = boundFunc('bar');
- * result === 'foobar'; // true
- *
-*/
+// boundShout = bind(alice.shout, { name: 'bob' });
+// console.log(boundShout())// 'bob'
 
-Function.prototype.bind = function(
-) {
-  // TODO: Your code here
-};
+// // // example 2
+// let func = (a, b) => { return a + b }
+// var boundFunc = bind(func, null, 'foo')
+// var result = boundFunc('bar')
+// console.log(result) // foobar
+
+Function.prototype.bind = function (arg1, ...args) {
+  return (...moreArgs) => {
+    let allArgs = args.concat(moreArgs)
+    return this.apply(arg1, allArgs)
+  }
+}
+
+// example 1:
+
+let alice = {
+  name: 'alice',
+  shout() { return this.name }
+}
+
+let boundShout = alice.shout.bind(alice);
+console.log(boundShout()) //  'alice'
+boundShout = alice.shout.bind({ name: 'bob' });
+console.log(boundShout()) //  'bob'
+
+// example 2:
+
+let func = function (a, b) { return a + b };
+let boundFunc = func.bind(null, 'foo');
+let result = boundFunc('bar');
+console.log(result) //'foobar'
