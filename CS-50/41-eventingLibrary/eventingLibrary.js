@@ -47,3 +47,5 @@ obj.on('ageChange', () => { // On takes an event name and a callback function
 obj.age++
 obj.trigger('ageChange')// This should call our callback! Should log 'age changed'.
 console.log(obj)
+
+//i don't know
