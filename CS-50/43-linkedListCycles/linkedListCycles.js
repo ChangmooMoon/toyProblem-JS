@@ -2,7 +2,7 @@
  * Assignment: Write a function that returns true if a linked list contains a cycle, or false if it terminates somewhere
  *
  * Explanation:
- * 
+ *
  * Generally, we assume that a linked list will terminate in a null next pointer, as follows:
  *
  * A -> B -> C -> D -> E -> null
@@ -31,10 +31,31 @@
  * Constraint 3: Do not mutate the original nodes in any way
  */
 
-var Node = function(value){
-  return { value: value, next: null };
+const Node = (value) => {
+  return {
+    value: value,
+    next: null,
+  }
 }
 
-var hasCycle = function(linkedList){
-  // TODO: implement me!
-};
+const hasCycle = (linkedList) => {
+  let beforeTrace = linkedList
+  let afterTrace = linkedList
+
+  while (afterTrace && afterTrace.next) {
+    beforeTrace = beforeTrace.next
+    afterTrace = afterTrace.next.next
+    // console.log('before: ', beforeTrace, '\nafter: ', afterTrace)
+    if (beforeTrace === afterTrace) return true
+  }
+  return false
+}
+
+var nodeA = Node('A')
+var nodeB = nodeA.next = Node('B')
+var nodeC = nodeB.next = Node('C')
+var nodeD = nodeC.next = Node('D')
+var nodeE = nodeD.next = Node('E')
+console.log(hasCycle(nodeA)) // => false
+nodeE.next = nodeB;
+console.log(hasCycle(nodeA)) // => true
