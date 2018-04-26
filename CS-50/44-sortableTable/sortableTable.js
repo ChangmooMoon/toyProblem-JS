@@ -8,8 +8,37 @@
  * Use the table provided in index.html.
  **/
 
-$(function () {
-  // TODO: your code here!
+$(() => {
+  const convert = (type, value) => {
+    if (type === 0) return '' + value
+    else if (type === 1) return parseInt(value, 10)
+    else if (type === 2) return parseFloat(value)
+    else if (type === 3) return new Date(value)
 
-});
+  }
+
+  const $tbody = $('tbody')
+  const $tr = $('tbody > tr')
+  let order = false
+
+  $('th').each((thIndex, thElement) => {
+    $(thElement).on('click', () => {
+      order = !order
+
+      if (order) {
+        $tr.sort((a, b) => {
+          return convert(thIndex, b.children[thIndex].innerHTML) > convert(thIndex, a.children[thIndex].innerHTML)
+        })
+      } else {
+        $tr.sort((a, b) => {
+          return convert(thIndex, b.children[thIndex].innerHTML) < convert(thIndex, a.children[thIndex].innerHTML)
+        })
+      }
+
+      $.each($tr, (index, row) => {
+        $tbody.append(row)
+      })
+    })
+  })
+})
 
