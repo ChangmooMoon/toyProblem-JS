@@ -9,9 +9,24 @@
 /**
   * example usage:
   * var anagrams = allAnagrams('abc');
-  * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
+  * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ] 3! = 6
+  * var anagrams2 = allAnagrams('abcd')
+  * consoe.log(anagrams2) // ['abcd',] 4! = 24
+  *
   */
 
-var allAnagrams = function(string) {
-  // Your code here.
-};
+const allAnagrams = (string) => {
+  let result = {}
+  let index = 0
+  const finder = (text, option) => {
+    if (text.length === string.length) result[text] = index++
+    for (var i = 0; i < option.length; i++) {
+      finder(text + option[i], option.slice(0, i) + option.slice(i + 1))
+    }
+  }
+  finder('', string)
+  return Object.keys(result)
+}
+
+let anagrams = allAnagrams('abc')
+console.log(anagrams)
