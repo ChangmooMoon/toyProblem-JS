@@ -25,6 +25,7 @@ const allAnagrams = (string) => {
     }
   }
   finder('', string)
+  console.log(result)
   return Object.keys(result)
 }
 
