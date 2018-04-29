@@ -19,7 +19,7 @@ const allAnagrams = (string) => {
   let result = {}
   let index = 0
   const finder = (text, option) => {
-    if (text.length === string.length) result[text] = index++
+    if (text.length === string.length) result[text] = true
     for (var i = 0; i < option.length; i++) {
       finder(text + option[i], option.slice(0, i) + option.slice(i + 1))
     }
