@@ -6,5 +6,15 @@
 * whitespace on each side of dad).
 */
 
-var longestPalindrome = function (string) {
-};
+const longestPalindrome = (string) => {
+  let result = ''
+  for (var i = 0; i < string.length; i++) {
+    for (var j = i + 3; j <= string.length; j++) {
+      if (string.slice(i, j) === string.slice(i, j).split('').reverse().join('') && string.slice(i, j).length > result.length)
+        result = string.slice(i, j)
+    }
+  }
+  return result
+}
+let a = longestPalindrome('My dad is a racecar athlete')
+console.log(a) /// 'a racecar a'
